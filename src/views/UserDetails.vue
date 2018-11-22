@@ -10,13 +10,16 @@
 </template>
 
 <script>
-import userData from "../data";
-
 export default {
   name: "UserDetails",
   data() {
     return {
-      user: userData.find(user => user.userId === this.$route.params.id)
+      user: this.$http
+        .get(`http://735429cd.ngrok.io/api/users/${this.$route.params.id}`)
+        .then(response => {
+          this.user = response.body;
+          console.log(response);
+        })
     };
   }
 };
