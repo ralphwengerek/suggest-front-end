@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       user: this.$http
-        .get(`http://735429cd.ngrok.io/api/users/${this.$route.params.id}`)
+        .get(`https://localhost:5001/api/polls/${this.$route.params.id}`)
         .then(response => {
           this.user = response.body;
           console.log(response);

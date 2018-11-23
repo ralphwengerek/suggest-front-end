@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Users from "./views/Users";
-import UserDetails from "./views/UserDetails";
+import Poll from "./views/Poll";
+import Suggest from "./views/Suggest";
 
 Vue.use(Router);
 
@@ -9,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "users",
-      component: Users
+      name: "poll",
+      component: Poll
     },
     {
-      path: "/userdetails/:id",
-      name: "userdetails",
-      component: UserDetails
+      path: "/suggest",
+      name: "suggest",
+      component: Suggest
     }
   ]
 });
