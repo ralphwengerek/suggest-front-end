@@ -27,6 +27,29 @@
                         <span class="md-error" v-if="!$v.form.description.required">The description is required</span>
                         <span class="md-error" v-else-if="!$v.form.description.description">Invalid description</span>
                     </md-field>
+
+                    <div class="md-layout md-gutter">
+
+                        <div class="md-layout-item">
+                            <md-field>
+                                <md-select v-model="deliveryMethod" name="delivery-Method" id="delivery-Method" placeholder="Delivery Method">
+                                    <md-option value="workshop">Workshop</md-option>
+
+                            </md-select>
+                            </md-field>
+                        </div>
+
+                        <div class="md-layout-item">
+                            <md-field>
+                                <md-select v-model="abilityLevel" name="ability-level" id="ability-level" placeholder="Ability Level">
+                                    <md-option value="levelOne">Level 1</md-option>
+
+                                </md-select>
+                            </md-field>
+                        </div>
+
+
+                    </div>
                 </md-card-content>
 
                 <md-progress-bar md-mode="indeterminate" v-if="sending"/>
@@ -51,8 +74,12 @@ export default {
   data: () => ({
     form: {
       courseTitle: null,
-      description: null
+      description: null,
+      deliveryMethod: null,
+      abilityLevel: null
     },
+    deliveryMethods: [],
+    abilityLevels: [],
     userSaved: false,
     sending: false,
     lastUser: null
