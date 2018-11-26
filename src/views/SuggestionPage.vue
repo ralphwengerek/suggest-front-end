@@ -22,33 +22,30 @@
 
                     <md-field :class="getValidationClass('description')">
                         <label for="description">Description</label>
-                        <md-textarea type="description" name="description" id="description"  v-model="form.description"
+                        <md-textarea type="description" name="description" id="description" v-model="form.description"
                                      :disabled="sending"/>
                         <span class="md-error" v-if="!$v.form.description.required">The description is required</span>
                         <span class="md-error" v-else-if="!$v.form.description.description">Invalid description</span>
                     </md-field>
 
                     <div class="md-layout md-gutter">
-
                         <div class="md-layout-item">
                             <md-field>
-                                <md-select v-model="deliveryMethod" name="delivery-Method" id="delivery-Method" placeholder="Delivery Method">
+                                <md-select v-model="deliveryMethod" name="delivery-Method" id="delivery-Method"
+                                           placeholder="Delivery Method">
                                     <md-option value="workshop">Workshop</md-option>
-
-                            </md-select>
-                            </md-field>
-                        </div>
-
-                        <div class="md-layout-item">
-                            <md-field>
-                                <md-select v-model="abilityLevel" name="ability-level" id="ability-level" placeholder="Ability Level">
-                                    <md-option value="levelOne">Level 1</md-option>
-
                                 </md-select>
                             </md-field>
                         </div>
 
-
+                        <div class="md-layout-item">
+                            <md-field>
+                                <md-select v-model="abilityLevel" name="ability-level" id="ability-level"
+                                           placeholder="Ability Level">
+                                    <md-option value="levelOne">Level 1</md-option>
+                                </md-select>
+                            </md-field>
+                        </div>
                     </div>
 
                     <div class="md-layout md-gutter">
@@ -57,42 +54,36 @@
                                 <label for="author-name">Author Name</label>
                                 <md-input name="author-name" id="author-name" v-model="form.authorName"
                                           :disabled="sending"/>
-
-
                             </md-field>
                         </div>
 
                         <div class="md-layout-item">
                             <md-field>
-                                <md-select v-model="authorRole" name="author-role" id="author-role" placeholder="Author Role">
+                                <md-select v-model="authorRole" name="author-role" id="author-role"
+                                           placeholder="Author Role">
                                     <md-option value="roleDev">Product Developer</md-option>
-
                                 </md-select>
                             </md-field>
                         </div>
 
                         <div class="md-layout-item">
                             <md-field>
-                                <md-select v-model="authorLevel" name="author-level" id="author-level" placeholder="Author Level">
+                                <md-select v-model="authorLevel" name="author-level" id="author-level"
+                                           placeholder="Author Level">
                                     <md-option value="levelOne">Level 1</md-option>
-
                                 </md-select>
                             </md-field>
                         </div>
-
-
-
                     </div>
                 </md-card-content>
 
                 <md-progress-bar md-mode="indeterminate" v-if="sending"/>
-
                 <md-card-actions>
                     <md-button type="submit" class="md-primary" :disabled="sending">Suggest Course</md-button>
                 </md-card-actions>
             </md-card>
 
-            <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>
+            <md-snackbar :md-active.sync="suggestionAdded">The suggestion "{{courseSuggestion}}" was successfully submitted!</md-snackbar>
         </form>
     </div>
 </template>
@@ -117,9 +108,10 @@ export default {
     deliveryMethods: [],
     abilityLevels: [],
     authorLevels: [],
-    userSaved: false,
+    authorRole: [],
+    suggestionAdded: false,
     sending: false,
-    lastUser: null
+    courseSuggestion: null
   }),
   validations: {
     form: {
@@ -145,9 +137,6 @@ export default {
     clearForm() {
       this.$v.$reset();
       this.form.courseTitle = null;
-      this.form.lastName = null;
-      this.form.age = null;
-      this.form.gender = null;
       this.form.description = null;
       this.form.authorName = null;
       this.form.authorRole = null;
@@ -158,8 +147,10 @@ export default {
 
       // Instead of this timeout, here you can call your API
       window.setTimeout(() => {
-        this.lastUser = `${this.form.courseTitle} ${this.form.lastName}`;
-        this.userSaved = true;
+        this.courseSuggestion = `${this.form.courseTitle} ${
+          this.form.description
+        }`;
+        this.suggestionAdded = true;
         this.sending = false;
         this.clearForm();
       }, 1500);
