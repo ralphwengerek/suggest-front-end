@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Poll from "./views/Poll";
-import Suggest from "./views/Suggest";
+import PollPage from "./views/PollPage";
+import SuggestionPage from "./views/SuggestionPage";
 
 Vue.use(Router);
 
@@ -9,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "poll",
-      component: Poll
+      name: "pollPage",
+      component: PollPage
     },
     {
       path: "/suggest",
-      name: "suggest",
-      component: Suggest
+      name: "suggestionPage",
+      component: SuggestionPage
     }
   ]
 });
