@@ -50,6 +50,39 @@
 
 
                     </div>
+
+                    <div class="md-layout md-gutter">
+                        <div class="md-layout-item">
+                            <md-field :class="getValidationClass('authorName')">
+                                <label for="author-name">Author Name</label>
+                                <md-input name="author-name" id="author-name" v-model="form.authorName"
+                                          :disabled="sending"/>
+
+
+                            </md-field>
+                        </div>
+
+                        <div class="md-layout-item">
+                            <md-field>
+                                <md-select v-model="authorRole" name="author-role" id="author-role" placeholder="Author Role">
+                                    <md-option value="roleDev">Product Developer</md-option>
+
+                                </md-select>
+                            </md-field>
+                        </div>
+
+                        <div class="md-layout-item">
+                            <md-field>
+                                <md-select v-model="authorLevel" name="author-level" id="author-level" placeholder="Author Level">
+                                    <md-option value="levelOne">Level 1</md-option>
+
+                                </md-select>
+                            </md-field>
+                        </div>
+
+
+
+                    </div>
                 </md-card-content>
 
                 <md-progress-bar md-mode="indeterminate" v-if="sending"/>
@@ -76,10 +109,14 @@ export default {
       courseTitle: null,
       description: null,
       deliveryMethod: null,
-      abilityLevel: null
+      abilityLevel: null,
+      authorName: null,
+      authorRole: null,
+      authorLevel: null
     },
     deliveryMethods: [],
     abilityLevels: [],
+    authorLevels: [],
     userSaved: false,
     sending: false,
     lastUser: null
@@ -112,6 +149,9 @@ export default {
       this.form.age = null;
       this.form.gender = null;
       this.form.description = null;
+      this.form.authorName = null;
+      this.form.authorRole = null;
+      this.form.authorLevel = null;
     },
     saveUser() {
       this.sending = true;
