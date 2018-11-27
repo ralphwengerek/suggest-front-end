@@ -28,51 +28,47 @@
                         <span class="md-error" v-else-if="!$v.form.description.description">Invalid description</span>
                     </md-field>
 
-                    <div class="md-layout md-gutter">
-                        <div class="md-layout-item">
-                            <md-field>
-                                <md-select v-model="deliveryMethod" name="delivery-Method" id="delivery-Method"
-                                           placeholder="Delivery Method">
-                                    <md-option value="workshop">Workshop</md-option>
-                                </md-select>
-                            </md-field>
-                        </div>
-
-                        <div class="md-layout-item">
-                            <md-field>
-                                <md-select v-model="abilityLevel" name="ability-level" id="ability-level"
-                                           placeholder="Ability Level">
-                                    <md-option value="levelOne">Level 1</md-option>
-                                </md-select>
-                            </md-field>
-                        </div>
+                    <div class="md-layout-item">
+                        <md-field>
+                            <md-select v-model="abilityLevel" name="ability-level" id="ability-level"
+                                       placeholder="Ability Level">
+                                <md-option value="beginner">Beginner</md-option>
+                                <md-option value="intermediate">Intermediate</md-option>
+                                <md-option value="advanced">Advanced</md-option>
+                            </md-select>
+                        </md-field>
                     </div>
 
-                    <div class="md-layout md-gutter">
-                        <div class="md-layout-item">
-                            <md-field :class="getValidationClass('authorName')">
-                                <label for="author-name">Author Name</label>
-                                <md-input name="author-name" id="author-name" v-model="form.authorName"
-                                          :disabled="sending"/>
-                            </md-field>
-                        </div>
+                    <md-checkbox v-model="runCourse">I want to run this course</md-checkbox>
 
-                        <div class="md-layout-item">
-                            <md-field>
-                                <md-select v-model="authorRole" name="author-role" id="author-role"
-                                           placeholder="Author Role">
-                                    <md-option value="roleDev">Product Developer</md-option>
-                                </md-select>
-                            </md-field>
-                        </div>
+                    <div id="host-details" v-if="runCourse">
 
-                        <div class="md-layout-item">
-                            <md-field>
-                                <md-select v-model="authorLevel" name="author-level" id="author-level"
-                                           placeholder="Author Level">
-                                    <md-option value="levelOne">Level 1</md-option>
-                                </md-select>
-                            </md-field>
+                        <div class="md-layout md-gutter">
+                            <div class="md-layout-item">
+                                <md-field :class="getValidationClass('authorName')">
+                                    <label for="author-name">Author Name</label>
+                                    <md-input name="author-name" id="author-name" v-model="form.authorName"
+                                              :disabled="sending"/>
+                                </md-field>
+                            </div>
+
+                            <div class="md-layout-item">
+                                <md-field>
+                                    <md-select v-model="authorRole" name="author-role" id="author-role"
+                                               placeholder="Author Role">
+                                        <md-option value="roleDev">Product Developer</md-option>
+                                    </md-select>
+                                </md-field>
+                            </div>
+
+                            <div class="md-layout-item">
+                                <md-field>
+                                    <md-select v-model="authorLevel" name="author-level" id="author-level"
+                                               placeholder="Author Level">
+                                        <md-option value="levelOne">Level 1</md-option>
+                                    </md-select>
+                                </md-field>
+                            </div>
                         </div>
                     </div>
                 </md-card-content>
@@ -83,7 +79,9 @@
                 </md-card-actions>
             </md-card>
 
-            <md-snackbar :md-active.sync="suggestionAdded">The suggestion "{{courseSuggestion}}" was successfully submitted!</md-snackbar>
+            <md-snackbar :md-active.sync="suggestionAdded">The suggestion "{{courseSuggestion}}" was successfully
+                submitted!
+            </md-snackbar>
         </form>
     </div>
 </template>
@@ -103,7 +101,8 @@ export default {
       abilityLevel: null,
       authorName: null,
       authorRole: null,
-      authorLevel: null
+      authorLevel: null,
+      runCourse: false
     },
     deliveryMethods: [],
     abilityLevels: [],
@@ -111,7 +110,8 @@ export default {
     authorRole: [],
     suggestionAdded: false,
     sending: false,
-    courseSuggestion: null
+    courseSuggestion: null,
+    runCourse: false
   }),
   validations: {
     form: {
