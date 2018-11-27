@@ -1,76 +1,53 @@
-
-
 <template>
-  <div class="polls">
+    <div class="polls">
 
-    <md-card :key="poll.pollId" v-for="poll in polls">
+        <md-card :key="poll.pollId" v-for="poll in polls">
 
-      <md-card-header>
-        <div class="md-title">{{poll.courseTitle}}</div>
-      </md-card-header>
+            <md-card-header>
+                <div class="md-title">{{poll.courseSuggestion.courseName}}</div>
+            </md-card-header>
 
-      <md-card-content>
-        <div class="md-title">{{poll.description}}</div>
-      </md-card-content>
+            <md-card-content>
+                <div class="md-layout md-gutter">
+                    <div class="course-description md-layout-item">
+                        {{poll.courseSuggestion.courseDescription}}
+                    </div>
 
-      <!--<md-card-header>
-        <div class="md-title">This is the title of the poll</div>
-      </md-card-header>
+                    <div class="vote-count md-layout-item">
+                        <div class="md-layout">
+                            <div class="md-layout-item md-size-100">
+                                {{poll.voteCount}}
+                            </div>
+                            <div class="md-layout-item">
+                                <md-button>Vote up</md-button>
+                            </div>
+                        </div>
+                    </div>
 
-      <md-card-content>
-        this is the content of the poll, description etc
-      </md-card-content>-->
+                </div>
+            </md-card-content>
 
-      <md-card-actions>
-        <md-button>Vote up</md-button>
-        <md-button>Vote down</md-button>
-      </md-card-actions>
-    </md-card>
+        </md-card>
 
-  </div>
+    </div>
 </template>
 
 <script>
 export default {
   name: "Poll",
-  data: function() {
-    return {
-      polls: [
-        {
-          pollId: 0,
-          courseTitle: "Vue.js",
-          description: "elbwaerlvberlibuvelrjvbqelrjvb"
-        },
-        {
-          pollId: 1,
-          courseTitle: "JavaScript",
-          description: "elbwaerlvberlibuvelrjvbqelrjvb"
-        },
-        {
-          pollId: 2,
-          courseTitle: "PHP",
-          description: "elbwaerlvberlibuvelrjvbqelrjvb"
-        },
-        {
-          pollId: 3,
-          courseTitle: "Java",
-          description: "elbwaerlvberlibuvelrjvbqelrjvb"
-        }
-      ]
-    };
-  }
-  /*created: function() {
-    this.$http.get("https://localhost:5001/api/polls").then(response => {
-      this.data.polls = response.body;
+  created: function() {
+    this.$http.get("http://localhost:5000/api/suggestions").then(response => {
       console.log(response);
+      this.polls = response.body;
     });
   },
-  data: () => {
-    return {
-      polls: []
-    };
-  }*/
+  data: () => ({
+    polls: []
+  })
 };
 </script>
 <style lang="scss">
+.vote-count {
+  font-size: 50px;
+}
 </style>
