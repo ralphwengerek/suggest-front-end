@@ -31,7 +31,7 @@
 export default {
   name: "Poll",
   created: function() {
-    this.$http.get("https://localhost:5001/api/suggestions").then(response => {
+    this.$http.get("http://localhost:5000/api/suggestions").then(response => {
       console.log(response);
       this.polls = response.body;
     });
@@ -43,7 +43,7 @@ export default {
     vote: function(vote) {
       console.log(vote);
 
-      fetch("https://localhost:5001/api/suggestions/vote", {
+      fetch("http://localhost:5000/api/suggestions/vote", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(vote)
