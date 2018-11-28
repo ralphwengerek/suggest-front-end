@@ -14,7 +14,7 @@
           </div>
         </div>
       </md-app-toolbar>
-      <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
+      <md-app-drawer :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
           <span>Navigation</span>
           <div class="md-toolbar-section-end">

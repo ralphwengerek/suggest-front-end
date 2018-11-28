@@ -1,6 +1,10 @@
 <template>
   <div>
-    <form novalidate class="md-layout" @submit.prevent="validateForm">
+    <form
+      novalidate
+      class="md-layout"
+      @submit.prevent="validateForm"
+    >
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
           <div class="md-title">Suggest a course</div>
@@ -57,13 +61,15 @@
               <span
                 class="md-error"
                 v-if="!$v.form.abilityLevelId.required"
-              >Please enter the ability level</span>
+              >Please select an ability level</span>
             </md-field>
           </div>
 
           <md-checkbox v-model="runCourse">I want to run this course</md-checkbox>
-
-          <div id="host-details" v-if="runCourse">
+          <div
+            id="host-details"
+            v-if="runCourse"
+          >
             <div class="md-layout md-gutter">
               <div class="md-layout-item">
                 <md-field :class="getValidationClass('authorName')">
@@ -73,7 +79,10 @@
                     id="author-name"
                     v-model="form.authorName"
                   />
-                  <span class="md-error" v-if="!$v.form.authorName.required">Your name is required</span>
+                  <span
+                    class="md-error"
+                    v-if="!$v.form.authorName.required"
+                  >Your name is required</span>
                 </md-field>
               </div>
 
@@ -88,7 +97,10 @@
                     <md-option value="Product Developer">Product Developer</md-option>
                     <md-option value="Product Analyst">Product Analyst</md-option>
                   </md-select>
-                  <span class="md-error" v-if="!$v.form.authorRole.required">Your role is required</span>
+                  <span
+                    class="md-error"
+                    v-if="!$v.form.authorRole.required"
+                  >Your role is required</span>
                 </md-field>
               </div>
 
@@ -106,14 +118,19 @@
                     <md-option value="Level 4">Level 4</md-option>
                     <md-option value="Level 5">Level 5</md-option>
                   </md-select>
-                  <span class="md-error" v-if="!$v.form.authorLevel.required">Your level is required</span>
+                  <span
+                    class="md-error"
+                    v-if="!$v.form.authorLevel.required"
+                  >Your level is required</span>
                 </md-field>
               </div>
             </div>
           </div>
         </md-card-content>
-
-        <md-progress-bar md-mode="indeterminate" v-if="sending"/>
+        <md-progress-bar
+          md-mode="indeterminate"
+          v-if="sending"
+        />
         <md-card-actions>
           <md-button
             type="submit"
