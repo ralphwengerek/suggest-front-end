@@ -174,7 +174,7 @@ export default {
           .then(
             success => {
               console.log("SUCCESS:", success);
-              //suggestionAdded = true;
+              this.suggestionAdded = true;
               this.clearForm();
             },
             failed => {
