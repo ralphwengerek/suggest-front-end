@@ -9,17 +9,17 @@
         <md-card-content>
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('courseName')"> 
+              <md-field :class="getValidationClass('courseName')">
                 <label for="course-name">Course Title</label>
                 <md-input
                   name="courseName"
                   id="course-name"
-                  v-model="form.CourseName"
+                  v-model="form.courseName"
                   :disabled="sending"
                 />
                 <span
                   class="md-error"
-                  v-if="!$v.form.CourseName.required"  
+                  v-if="!$v.form.courseName.required"
                 >A course title is required</span>
               </md-field>
             </div>
@@ -48,9 +48,11 @@
                 id="ability-level"
                 placeholder="Ability Level"
               >
-                <md-option v-for="abilityLevel in abilityLevels" :key="abilityLevel.abilityLevelId" 
-                :value="abilityLevel.abilityLevelId" >{{ abilityLevel.description }}</md-option>
-               
+                <md-option
+                  v-for="abilityLevel in abilityLevels"
+                  :key="abilityLevel.abilityLevelId"
+                  :value="abilityLevel.abilityLevelId"
+                >{{ abilityLevel.description }}</md-option>
               </md-select>
               <span
                 class="md-error"
@@ -72,15 +74,12 @@
                     v-model="form.authorName"
                     :disabled="sending"
                   />
-                  <!-- <span
-                  class="md-error"
-                  v-if="!$v.form.authorName.required"  
-                >Your name is required</span> -->
+                  <span class="md-error" v-if="!$v.form.authorName.required">Your name is required</span>
                 </md-field>
               </div>
 
               <div class="md-layout-item">
-                <md-field>
+                <md-field :class="getValidationClass('authorRole')">
                   <md-select
                     v-model="form.authorRole"
                     name="authorRole"
@@ -90,11 +89,12 @@
                     <md-option value="Product Developer">Product Developer</md-option>
                     <md-option value="Product Analyst">Product Analyst</md-option>
                   </md-select>
+                  <span class="md-error" v-if="!$v.form.authorRole.required">Your role is required</span>
                 </md-field>
               </div>
 
               <div class="md-layout-item">
-                <md-field>
+                <md-field :class="getValidationClass('authorLevel')">
                   <md-select
                     v-model="form.authorLevel"
                     name="authorLevel"
@@ -107,6 +107,7 @@
                     <md-option value="Level 4">Level 4</md-option>
                     <md-option value="Level 5">Level 5</md-option>
                   </md-select>
+                  <span class="md-error" v-if="!$v.form.authorLevel.required">Your level is required</span>
                 </md-field>
               </div>
             </div>
@@ -135,6 +136,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
+import { requiredUnless } from "vuelidate/lib/validators";
 
 import config from "../config";
 
@@ -172,7 +174,7 @@ export default {
   }),
   validations: {
     form: {
-      CourseName: {
+      courseName: {
         required
       },
       courseDescription: {
@@ -180,7 +182,22 @@ export default {
       },
       abilityLevelId: {
         required
+      },
+      authorName: {
+        required: requiredUnless("isNotRunningCourse")
+      },
+      authorRole: {
+        required: requiredUnless("isNotRunningCourse")
+      },
+      authorLevel: {
+        required: requiredUnless("isNotRunningCourse")
       }
+    }
+  },
+  computed: {
+    isNotRunningCourse() {
+      console.log("Computed: ", this.$v.unCourse);
+      return !this.$v.runCourse;
     }
   },
   methods: {
@@ -191,9 +208,7 @@ export default {
         this.sending = true;
 
         this.$http
-          .post(`${config.baseUrl}/suggestions`, this.form, {
-            headers: { "Content-Type": "application/json;charset=utf-8" }
-          })
+          .post(`${config.baseUrl}/suggestions`, this.form, config.headers)
           .then(
             success => {
               console.log("SUCCESS:", success);
@@ -220,7 +235,7 @@ export default {
     },
     clearForm() {
       this.$v.$reset();
-      this.form.CourseName = "";
+      this.form.courseName = "";
       this.form.CourseDescription = "";
       this.form.AuthorName = "";
       this.form.AuthorRole = "";
@@ -228,7 +243,7 @@ export default {
     },
     validateForm() {
       this.$v.$touch();
-
+      console.log("Valid:", this.$v.runCourse);
       return !this.$v.$invalid;
     }
   }
