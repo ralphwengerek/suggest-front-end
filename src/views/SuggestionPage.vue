@@ -9,7 +9,7 @@
         <md-card-content>
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('courseName')">
+              <md-field :class="getValidationClass('courseName')"> 
                 <label for="course-name">Course Title</label>
                 <md-input
                   name="courseName"
@@ -19,7 +19,7 @@
                 />
                 <span
                   class="md-error"
-                  v-if="!$v.form.CourseName.required"
+                  v-if="!$v.form.CourseName.required"  
                 >A course title is required</span>
               </md-field>
             </div>
@@ -72,6 +72,10 @@
                     v-model="form.authorName"
                     :disabled="sending"
                   />
+                  <!-- <span
+                  class="md-error"
+                  v-if="!$v.form.authorName.required"  
+                >Your name is required</span> -->
                 </md-field>
               </div>
 
