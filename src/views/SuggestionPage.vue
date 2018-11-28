@@ -12,15 +12,15 @@
               <md-field :class="getValidationClass('courseName')">
                 <label for="course-name">Course Title</label>
                 <md-input
-                  name="course-name"
+                  name="courseName"
                   id="course-name"
-                  v-model="form.courseName"
+                  v-model="form.CourseName"
                   :disabled="sending"
                 />
                 <span
                   class="md-error"
-                  v-if="!$v.form.courseName.required"
-                >a course title is required</span>
+                  v-if="!$v.form.CourseName.required"
+                >A course title is required</span>
               </md-field>
             </div>
           </div>
@@ -29,7 +29,7 @@
             <label for="course-description">Description</label>
             <md-textarea
               type="course-description"
-              name="course-description"
+              name="courseDescription"
               id="course-description"
               v-model="form.courseDescription"
               :disabled="sending"
@@ -44,13 +44,13 @@
             <md-field :class="getValidationClass('abilityLevelId')">
               <md-select
                 v-model="form.abilityLevelId"
-                name="ability-level"
+                name="abilityLevel"
                 id="ability-level"
                 placeholder="Ability Level"
               >
-                <md-option value="1">Beginner</md-option>
-                <md-option value="2">Intermediate</md-option>
-                <md-option value="3">Advanced</md-option>
+                <md-option v-for="abilityLevel in abilityLevels" :key="abilityLevel.abilityLevelId" 
+                :value="abilityLevel.abilityLevelId" >{{ abilityLevel.description }}</md-option>
+               
               </md-select>
               <span
                 class="md-error"
@@ -67,7 +67,7 @@
                 <md-field :class="getValidationClass('authorName')">
                   <label for="author-name">Author Name</label>
                   <md-input
-                    name="author-name"
+                    name="authorName"
                     id="author-name"
                     v-model="form.authorName"
                     :disabled="sending"
@@ -79,11 +79,12 @@
                 <md-field>
                   <md-select
                     v-model="form.authorRole"
-                    name="author-role"
+                    name="authorRole"
                     id="author-role"
                     placeholder="Author Role"
                   >
-                    <md-option value="roleDev">Product Developer</md-option>
+                    <md-option value="Product Developer">Product Developer</md-option>
+                    <md-option value="Product Analyst">Product Analyst</md-option>
                   </md-select>
                 </md-field>
               </div>
@@ -92,11 +93,15 @@
                 <md-field>
                   <md-select
                     v-model="form.authorLevel"
-                    name="author-level"
+                    name="authorLevel"
                     id="author-level"
                     placeholder="Author Level"
                   >
-                    <md-option value="levelOne">Level 1</md-option>
+                    <md-option value="Level 1">Level 1</md-option>
+                    <md-option value="Level 2">Level 2</md-option>
+                    <md-option value="Level 3">Level 3</md-option>
+                    <md-option value="Level 4">Level 4</md-option>
+                    <md-option value="Level 5">Level 5</md-option>
                   </md-select>
                 </md-field>
               </div>
@@ -127,19 +132,33 @@
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 
+import config from "../config";
+
 export default {
   name: "SuggestionPage",
   mixins: [validationMixin],
+  created: function() {
+    console.log("Suggestion page created");
+    this.$http.get(`${config.baseUrl}/suggestions/abilitylevels`).then(
+      response => {
+        console.log(response.body);
+        this.abilityLevels = response.body;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  },
   data: () => ({
     form: {
-      courseName: null,
-      courseDescription: null,
-      abilityLevelId: null,
-      authorName: "",
-      authorRole: "",
-      authorLevel: ""
+      CourseName: "",
+      CourseDescription: "",
+      AbilityLevelId: null,
+      AuthorName: "",
+      AuthorRole: "",
+      AuthorLevel: ""
     },
-    abilityLevelIds: [],
+    abilityLevels: [],
     authorLevels: [],
     authorRole: [],
     suggestionAdded: false,
@@ -149,7 +168,7 @@ export default {
   }),
   validations: {
     form: {
-      courseName: {
+      CourseName: {
         required
       },
       courseDescription: {
@@ -168,7 +187,7 @@ export default {
         this.sending = true;
 
         this.$http
-          .post("http://localhost:5000/api/suggestions", this.form, {
+          .post(`${config.baseUrl}/suggestions`, this.form, {
             headers: { "Content-Type": "application/json;charset=utf-8" }
           })
           .then(
@@ -197,11 +216,11 @@ export default {
     },
     clearForm() {
       this.$v.$reset();
-      this.form.courseName = "";
-      this.form.courseDescription = "";
-      this.form.authorName = "";
-      this.form.authorRole = "";
-      this.form.authorLevel = null;
+      this.form.CourseName = "";
+      this.form.CourseDescription = "";
+      this.form.AuthorName = "";
+      this.form.AuthorRole = "";
+      this.form.AuthorLevel = null;
     },
     validateForm() {
       this.$v.$touch();
