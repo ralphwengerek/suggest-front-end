@@ -151,12 +151,12 @@ export default {
   },
   data: () => ({
     form: {
-      CourseName: "",
-      CourseDescription: "",
-      AbilityLevelId: null,
-      AuthorName: "",
-      AuthorRole: "",
-      AuthorLevel: ""
+      courseName: "",
+      courseDescription: "",
+      abilityLevelId: null,
+      authorName: "",
+      authorRole: "",
+      authorLevel: ""
     },
     abilityLevels: [],
     authorLevels: [],
