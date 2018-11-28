@@ -72,7 +72,6 @@
                     name="authorName"
                     id="author-name"
                     v-model="form.authorName"
-                    :disabled="sending"
                   />
                   <span class="md-error" v-if="!$v.form.authorName.required">Your name is required</span>
                 </md-field>
@@ -136,7 +135,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
-import { requiredUnless } from "vuelidate/lib/validators";
+import { requiredIf } from "vuelidate/lib/validators";
 
 import config from "../config";
 
@@ -171,6 +170,7 @@ export default {
     courseSuggestion: null,
     runCourse: false
   }),
+
   validations: {
     form: {
       courseName: {
@@ -183,20 +183,20 @@ export default {
         required
       },
       authorName: {
-        required: requiredUnless("isNotRunningCourse")
+        required: requiredIf(function() {
+          return this.runCourse;
+        })
       },
       authorRole: {
-        required: requiredUnless("isNotRunningCourse")
+        required: requiredIf(function() {
+          return this.runCourse;
+        })
       },
       authorLevel: {
-        required: requiredUnless("isNotRunningCourse")
+        required: requiredIf(function() {
+          return this.runCourse;
+        })
       }
-    }
-  },
-  computed: {
-    isNotRunningCourse() {
-      console.log("Computed: ", this.$v.unCourse);
-      return !this.$v.runCourse;
     }
   },
   methods: {
@@ -242,8 +242,6 @@ export default {
     },
     validateForm() {
       this.$v.$touch();
-      console.log("Valid:", this.$v.runCourse);
-      return !this.$v.$invalid;
     }
   }
 };
