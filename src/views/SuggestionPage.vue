@@ -147,7 +147,6 @@ export default {
     console.log("Suggestion page created");
     this.$http.get(`${config.baseUrl}/suggestions/abilitylevels`).then(
       response => {
-        console.log(response.body);
         this.abilityLevels = response.body;
       },
       error => {
