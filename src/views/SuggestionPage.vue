@@ -95,12 +95,12 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     form: {
-      courseName: null,
-      courseDescription: null,
+      courseName: "",
+      courseDescription: "",
       deliveryMethodId: null,
       abilityLevelId: null,
-      authorName: null,
-      authorRole: null,
+      authorName: "",
+      authorRole: "",
       authorLevel: null
     },
     deliveryMethods: [],
@@ -117,7 +117,6 @@ export default {
       courseName: {
         required
       },
-
       courseDescription: {
         required
       }
@@ -157,20 +156,7 @@ export default {
       this.form.authorRole = null;
       this.form.authorLevel = null;
     },
-    saveUser() {
-      this.sending = true;
-
-      // Instead of this timeout, here you can call your API
-      window.setTimeout(() => {
-        this.courseSuggestion = `${this.form.courseName} ${
-          this.form.courseDescription
-        }`;
-        this.suggestionAdded = true;
-        this.sending = false;
-        this.clearForm();
-      }, 1500);
-    },
-    validateUser() {
+    validateSuggestion() {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
