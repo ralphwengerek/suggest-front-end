@@ -9,7 +9,7 @@
           <div class="logo">
             <img src="./assets/ANDigitalLogo.png" alt="AND Digital" height="150" width="150">
           </div>
-          <div class="md-title" id="title">Academy Poll</div>
+          <div class="md-title">Academy Poll</div>
         </div>
       </md-app-toolbar>
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
@@ -76,6 +76,10 @@ export default {
   background-color: white;
   padding-right: 10px;
 }
+
+// .title {
+// margin-left: 20px;
+// }
 
 .md-app {
   min-height: 350px;
