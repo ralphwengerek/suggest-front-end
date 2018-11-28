@@ -32,9 +32,9 @@
                         <md-field>
                             <md-select v-model="form.abilityLevelId" name="ability-level" id="ability-level"
                                        placeholder="Ability Level">
-                                <md-option value="beginner">Beginner</md-option>
-                                <md-option value="intermediate">Intermediate</md-option>
-                                <md-option value="advanced">Advanced</md-option>
+                                <md-option value="1">Beginner</md-option>
+                                <md-option value="2">Intermediate</md-option>
+                                <md-option value="3">Advanced</md-option>
                             </md-select>
                         </md-field>
                     </div>
@@ -98,9 +98,9 @@ export default {
       courseName: null,
       courseDescription: null,
       abilityLevelId: null,
-      authorName: null,
-      authorRole: null,
-      authorLevel: null
+      authorName: "",
+      authorRole: "",
+      authorLevel: ""
     },
     abilityLevelIds: [],
     authorLevels: [],
