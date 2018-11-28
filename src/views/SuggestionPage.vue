@@ -11,10 +11,10 @@
                         <div class="md-layout-item md-small-size-100">
                             <md-field :class="getValidationClass('courseTitle')">
                                 <label for="course-title">Course Title</label>
-                                <md-input name="course-title" id="course-title" v-model="form.courseTitle"
+                                <md-input name="course-title" id="course-title" v-model="form.courseName"
                                           :disabled="sending"/>
                                 <span class="md-error"
-                                      v-if="!$v.form.courseTitle.required">a course title is required</span>
+                                      v-if="!$v.form.courseName.required">a course title is required</span>
                             </md-field>
                         </div>
                     </div>
@@ -22,15 +22,15 @@
 
                     <md-field :class="getValidationClass('description')">
                         <label for="description">Description</label>
-                        <md-textarea type="description" name="description" id="description" v-model="form.description"
+                        <md-textarea type="description" name="description" id="description" v-model="form.courseDescription"
                                      :disabled="sending"/>
-                        <span class="md-error" v-if="!$v.form.description.required">The description is required</span>
-                        <span class="md-error" v-else-if="!$v.form.description.description">Invalid description</span>
+                        <span class="md-error" v-if="!$v.form.courseDescription.required">The description is required</span>
+                        <span class="md-error" v-else-if="!$v.form.courseDescription.description">Invalid description</span>
                     </md-field>
 
                     <div class="md-layout-item">
                         <md-field>
-                            <md-select v-model="abilityLevel" name="ability-level" id="ability-level"
+                            <md-select v-model="form.abilityLevelId" name="ability-level" id="ability-level"
                                        placeholder="Ability Level">
                                 <md-option value="beginner">Beginner</md-option>
                                 <md-option value="intermediate">Intermediate</md-option>
@@ -75,7 +75,7 @@
 
                 <md-progress-bar md-mode="indeterminate" v-if="sending"/>
                 <md-card-actions>
-                    <md-button type="submit" class="md-primary" :disabled="sending">Suggest Course</md-button>
+                    <md-button type="submit" class="md-primary"  v-on:click="submitForm" :disabled="sending">Suggest Course</md-button>
                 </md-card-actions>
             </md-card>
 
@@ -95,17 +95,16 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     form: {
-      courseTitle: null,
-      description: null,
-      deliveryMethod: null,
-      abilityLevel: null,
+      courseName: null,
+      courseDescription: null,
+      deliveryMethodId: null,
+      abilityLevelId: null,
       authorName: null,
       authorRole: null,
-      authorLevel: null,
-      runCourse: false
+      authorLevel: null
     },
     deliveryMethods: [],
-    abilityLevels: [],
+    abilityLevelIds: [],
     authorLevels: [],
     authorRole: [],
     suggestionAdded: false,
@@ -115,16 +114,31 @@ export default {
   }),
   validations: {
     form: {
-      courseTitle: {
+      courseName: {
         required
       },
 
-      description: {
+      courseDescription: {
         required
       }
     }
   },
+
   methods: {
+    submitForm() {
+      console.log("submitting: ", this.form);
+      this.$http
+        .post("http://localhost:5000/api/suggestions", this.form, {
+          headers: { "Content-Type": "application/json;charset=utf-8" }
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
 
@@ -134,10 +148,11 @@ export default {
         };
       }
     },
+
     clearForm() {
       this.$v.$reset();
-      this.form.courseTitle = null;
-      this.form.description = null;
+      this.form.courseName = null;
+      this.form.courseDescription = null;
       this.form.authorName = null;
       this.form.authorRole = null;
       this.form.authorLevel = null;
@@ -147,8 +162,8 @@ export default {
 
       // Instead of this timeout, here you can call your API
       window.setTimeout(() => {
-        this.courseSuggestion = `${this.form.courseTitle} ${
-          this.form.description
+        this.courseSuggestion = `${this.form.courseName} ${
+          this.form.courseDescription
         }`;
         this.suggestionAdded = true;
         this.sending = false;
