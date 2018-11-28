@@ -3,6 +3,7 @@
         <div class="btn-add-suggestion">
             <md-button class="md-icon-button md-raised md-accent" to="/suggest">
                 <md-icon>add</md-icon>
+                <md-tooltip md-direction="left" >Suggest a course</md-tooltip>
             </md-button>
         </div>
         <div class="polls">

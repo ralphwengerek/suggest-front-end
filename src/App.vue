@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <md-app>
-      <md-app-toolbar class="md-primary" md-elevation="0">
+      <md-app-toolbar class="md-primary" md-elevation="2">
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
@@ -27,10 +27,12 @@
           <md-list-item to="/">
             <md-icon>poll</md-icon>
             <span class="md-list-item-text">Academy Poll</span>
+            <md-tooltip md-direction="right" v-show="!menuVisible">Academy Poll</md-tooltip>
           </md-list-item>
           <md-list-item to="/suggest">
-            <md-icon>send</md-icon>
+            <md-icon>add</md-icon>
             <span class="md-list-item-text">Suggest a course</span>
+            <md-tooltip md-direction="right" v-show="!menuVisible">Suggest a course</md-tooltip>
           </md-list-item>
         </md-list>
       </md-app-drawer>
@@ -61,9 +63,8 @@ export default {
 @include md-register-theme(
   "default",
   (
-    primary: md-get-palette-color(red, A200),
-    // The primary color of your application
-      accent: md-get-palette-color(red, A200)// The accent or secondary color
+    primary: md-get-palette-color(red, 600),
+    accent: md-get-palette-color(red, 400)
   )
 );
 
@@ -91,5 +92,9 @@ export default {
 .md-drawer {
   width: 230px;
   max-width: calc(100vw - 125px);
+}
+
+.md-app-toolbar {
+  //height: 196px;
 }
 </style>
