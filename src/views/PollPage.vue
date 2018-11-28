@@ -42,13 +42,19 @@ export default {
       console.log(vote);
       this.$http
         .post(`${config.baseUrl}/suggestions/vote`, vote, config.headers)
-        .then(response => {
-          let poll = this.polls.find(
-            poll => poll.courseSuggestionId == response.body.courseSuggestionId
-          );
-          console.log("Voted poll", poll);
-          poll.voteCount = response.body.voteCount;
-        });
+        .then(
+          response => {
+            let poll = this.polls.find(
+              poll =>
+                poll.courseSuggestionId == response.body.courseSuggestionId
+            );
+            console.log("Voted poll", poll);
+            poll.voteCount = response.body.voteCount;
+          },
+          error => {
+            console.log(error);
+          }
+        );
     }
   }
 };
