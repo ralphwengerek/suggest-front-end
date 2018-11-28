@@ -26,7 +26,7 @@
           </div>
 
           <md-field :class="getValidationClass('courseDescription')">
-            <label for="description">Description</label>
+            <label for="course-description">Description</label>
             <md-textarea
               type="course-description"
               name="course-description"
@@ -185,7 +185,6 @@ export default {
             this.sending = false;
           });
       }
-      console.log("Not valid....");
     },
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
