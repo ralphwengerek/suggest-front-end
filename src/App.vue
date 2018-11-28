@@ -33,7 +33,7 @@
         </md-list>
       </md-app-drawer>
       <md-app-content>
-        <router-view/>
+        <router-view/>∏
       </md-app-content>
     </md-app>
   </div>
