@@ -32,9 +32,9 @@
                         <md-field>
                             <md-select v-model="form.abilityLevelId" name="ability-level" id="ability-level"
                                        placeholder="Ability Level">
-                                <md-option value="beginner">Beginner</md-option>
-                                <md-option value="intermediate">Intermediate</md-option>
-                                <md-option value="advanced">Advanced</md-option>
+                                <md-option value="1">Beginner</md-option>
+                                <md-option value="2">Intermediate</md-option>
+                                <md-option value="3">Advanced</md-option>
                             </md-select>
                         </md-field>
                     </div>
@@ -54,7 +54,7 @@
 
                             <div class="md-layout-item">
                                 <md-field>
-                                    <md-select v-model="authorRole" name="author-role" id="author-role"
+                                    <md-select v-model="form.authorRole" name="author-role" id="author-role"
                                                placeholder="Author Role">
                                         <md-option value="roleDev">Product Developer</md-option>
                                     </md-select>
@@ -63,7 +63,7 @@
 
                             <div class="md-layout-item">
                                 <md-field>
-                                    <md-select v-model="authorLevel" name="author-level" id="author-level"
+                                    <md-select v-model="form.authorLevel" name="author-level" id="author-level"
                                                placeholder="Author Level">
                                         <md-option value="levelOne">Level 1</md-option>
                                     </md-select>
@@ -97,13 +97,11 @@ export default {
     form: {
       courseName: null,
       courseDescription: null,
-      deliveryMethodId: null,
       abilityLevelId: null,
-      authorName: null,
-      authorRole: null,
-      authorLevel: null
+      authorName: "",
+      authorRole: "",
+      authorLevel: ""
     },
-    deliveryMethods: [],
     abilityLevelIds: [],
     authorLevels: [],
     authorRole: [],
