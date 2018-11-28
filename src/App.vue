@@ -5,7 +5,12 @@
         <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
           <md-icon>menu</md-icon>
         </md-button>
-        <span class="md-title">AND Digital Academy Poll </span>
+        <div class="top-toolbar">
+          <div class="logo">
+            <img src="./assets/ANDigitalLogo.png" alt="AND Digital" height="150" width="150">
+          </div>
+          <div class="md-title" id="title">Academy Poll</div>
+        </div>
       </md-app-toolbar>
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
         <md-toolbar class="md-transparent" md-elevation="0">
@@ -61,6 +66,16 @@ export default {
 );
 
 @import "~vue-material/dist/theme/all"; // Apply the theme
+
+.top-toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  background-color: white;
+  padding-right: 10px;
+}
 
 .md-app {
   min-height: 350px;
