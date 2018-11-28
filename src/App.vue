@@ -9,7 +9,9 @@
           <div class="logo">
             <img src="./assets/ANDigitalLogo.png" alt="AND Digital" height="150" width="150">
           </div>
-          <div class="md-title">Academy Poll</div>
+          <div class="md-title">
+            <div class="title">Academy Poll</div>
+          </div>
         </div>
       </md-app-toolbar>
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
@@ -33,7 +35,7 @@
         </md-list>
       </md-app-drawer>
       <md-app-content>
-        <router-view/>∏
+        <router-view/>
       </md-app-content>
     </md-app>
   </div>
@@ -77,9 +79,9 @@ export default {
   padding-right: 10px;
 }
 
-// .title {
-// margin-left: 20px;
-// }
+.title {
+  margin-left: 30px;
+}
 
 .md-app {
   min-height: 350px;
