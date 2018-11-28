@@ -1,3 +1,6 @@
 export const config = {
-  baseUrl: "https://localhost:5001/api/suggestions"
+  baseUrl: "http://localhost:5000/api",
+  headers: {
+    "Content-Type": "application/json"
+  }
 };
