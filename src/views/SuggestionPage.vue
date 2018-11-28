@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form novalidate class="md-layout" @submit.prevent="validateUser" ng-submit="form.$valid">
+    <form novalidate class="md-layout" @submit.prevent="validateForm">
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
           <div class="md-title">Suggest a course</div>
@@ -128,7 +128,7 @@ import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 
 export default {
-  name: "FormValidation",
+  name: "SuggestionPage",
   mixins: [validationMixin],
   data: () => ({
     form: {
@@ -152,34 +152,41 @@ export default {
       courseName: {
         required
       },
-
       courseDescription: {
         required
       },
-
       abilityLevelId: {
         required
       }
     }
   },
-
   methods: {
     submitForm() {
-      if (this.$v.form.$valid) {
+      if (!this.$v.form.$invalid) {
         console.log("submitting: ", this.form);
+
+        this.sending = true;
+
         this.$http
           .post("http://localhost:5000/api/suggestions", this.form, {
             headers: { "Content-Type": "application/json;charset=utf-8" }
           })
-          .then(response => {
-            console.log(response);
-          })
-          .catch(err => {
-            console.log(err);
+          .then(
+            success => {
+              console.log("SUCCESS:", success);
+              //suggestionAdded = true;
+              this.clearForm();
+            },
+            failed => {
+              console.log("FAILED:", failed);
+            }
+          )
+          .finally(() => {
+            this.sending = false;
           });
       }
+      console.log("Not valid....");
     },
-
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
 
@@ -189,34 +196,18 @@ export default {
         };
       }
     },
-
     clearForm() {
       this.$v.$reset();
-      this.form.courseName = null;
-      this.form.courseDescription = null;
-      this.form.authorName = null;
-      this.form.authorRole = null;
+      this.form.courseName = "";
+      this.form.courseDescription = "";
+      this.form.authorName = "";
+      this.form.authorRole = "";
       this.form.authorLevel = null;
     },
-    saveUser() {
-      this.sending = true;
-
-      // Instead of this timeout, here you can call your API
-      window.setTimeout(() => {
-        this.courseSuggestion = `${this.form.courseName} ${
-          this.form.courseDescription
-        }`;
-        this.suggestionAdded = true;
-        this.sending = false;
-        this.clearForm();
-      }, 1500);
-    },
-    validateUser() {
+    validateForm() {
       this.$v.$touch();
 
-      if (!this.$v.$invalid) {
-        this.saveUser();
-      }
+      return !this.$v.$invalid;
     }
   }
 };
