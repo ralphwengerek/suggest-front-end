@@ -23,7 +23,7 @@
         </md-card-header>
         <md-card-content>
           <div class="md-layout md-gutter md-alignment-space-between-top">
-            <div class="md-layout-item md-size-70">{{poll.courseDescription | nl2br }}</div>
+            <div class="md-layout-item md-size-70" v-html="nl2br(poll.courseDescription)"></div>
             <div class="md-layout-item">
               <div class="md-layout">
                 <div class="center vote-count md-layout-item md-size-100">{{poll.voteCount}}</div>
@@ -53,6 +53,7 @@
 <script>
 import config from "../config";
 import userProfile from "../lib/userprofile";
+import utils from "../lib/utils";
 
 export default {
   name: "Poll",
@@ -78,7 +79,9 @@ export default {
     getUserId: function() {
       return userProfile.getUserId();
     },
-
+    nl2br: function(text) {
+      return utils.nl2br(text);
+    },
     vote: function(vote) {
       console.log(vote);
       if (!vote.hasVoted) {
