@@ -26,20 +26,13 @@
                 <div class="center vote-count md-layout-item md-size-100">{{poll.voteCount}}</div>
                 <div class="center md-layout-item md-size-100">
                   <md-button
-                    :disabled="poll.hasVoted"
-                    class="md-icon-button md-raised md-accent"
-                    @click="vote({ courseSuggestionId: poll.courseSuggestionId, voterId:getUserId()})"
+                    class="md-icon-button"
+                    :class="{'md-accent': poll.hasVoted,
+                    'md-elevation-5':!poll.hasVoted}"
+                    @click="vote({ courseSuggestionId: poll.courseSuggestionId, voterId:getUserId(), hasVoted: poll.hasVoted})"
                   >
                     <md-icon>thumb_up</md-icon>
                   </md-button>
-
-                  <!-- <md-button
-                    v-if="poll.hasVoted"
-                    class="md-icon-button md-raised md-accent"
-                    @click="vote({ courseSuggestionId: poll.courseSuggestionId, voterId:getUserId()})"
-                  >
-                    <md-icon>thumb_down</md-icon>
-                  </md-button> -->
                 </div>
               </div>
             </div>
@@ -47,6 +40,10 @@
         </md-card-content>
       </md-card>
     </div>
+
+    <md-snackbar :md-active.sync="showSnackbar">
+      {{errorMessage}}
+    </md-snackbar>
   </div>
 </template>
 
@@ -57,15 +54,22 @@ import userProfile from "../lib/userprofile";
 export default {
   name: "Poll",
   created: function() {
-    this.$http
-      .get(`${config.baseUrl}/suggestions/${this.getUserId()}`)
-      .then(response => {
+    this.$http.get(`${config.baseUrl}/suggestions/${this.getUserId()}`).then(
+      response => {
         console.log(response);
         this.polls = response.body;
-      });
+      },
+      error => {
+        console.log(error);
+        this.errorMessage = "There was an error fetching the suggestions...";
+        this.showSnackbar = true;
+      }
+    );
   },
   data: () => ({
-    polls: []
+    polls: [],
+    errorMessage: "",
+    showSnackbar: false
   }),
   methods: {
     getUserId: function() {
@@ -74,21 +78,43 @@ export default {
 
     vote: function(vote) {
       console.log(vote);
-      this.$http
-        .post(`${config.baseUrl}/suggestions/vote`, vote, config.headers)
-        .then(
-          response => {
-            let poll = this.polls.find(
-              poll =>
-                poll.courseSuggestionId == response.body.courseSuggestionId
-            );
-            poll.voteCount = response.body.voteCount;
-            poll.hasVoted = true;
-          },
-          error => {
-            console.log(error);
-          }
-        );
+      if (!vote.hasVoted) {
+        this.$http
+          .post(`${config.baseUrl}/suggestions/vote`, vote, config.headers)
+          .then(
+            response => {
+              let poll = this.polls.find(
+                poll =>
+                  poll.courseSuggestionId == response.body.courseSuggestionId
+              );
+              poll.voteCount = response.body.voteCount;
+              poll.hasVoted = true;
+            },
+            error => {
+              console.log(error);
+              this.errorMessage = "There was an error submitting your vote";
+              this.showSnackbar = true;
+            }
+          );
+      } else {
+        this.$http
+          .post(`${config.baseUrl}/suggestions/unvote`, vote, config.headers)
+          .then(
+            response => {
+              let poll = this.polls.find(
+                poll =>
+                  poll.courseSuggestionId == response.body.courseSuggestionId
+              );
+              poll.voteCount = response.body.voteCount;
+              poll.hasVoted = false;
+            },
+            error => {
+              console.log(error);
+              this.errorMessage = "There was an error unvoting your vote";
+              this.showSnackbar = true;
+            }
+          );
+      }
     }
   }
 };
