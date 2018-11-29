@@ -1,20 +1,21 @@
 <template>
   <div>
-    <div class="btn-add-suggestion">
-      <md-button
-        class="md-fab"
-        to="/suggest"
-      >
-        <md-icon>add</md-icon>
-        <md-tooltip md-direction="left">Suggest a course</md-tooltip>
-      </md-button>
+    <div class="md-layout md-alignment-center-right">
+      <div class="md-layout-item md-large-size-50 md-small-size-100">
+        <div class="btn-add-suggestion">
+          <div class="md-layout md-gutter">
+            <!-- HERE WE NEED TO ALIGN THE TEXT VERTICALLY IN THE CENTER -->
+            <h2 class="md-layout-item md-alignment-center-left">Suggest a new course</h2>
+            <md-button class="md-fab" to="/suggest">
+              <md-icon>add</md-icon>
+              <md-tooltip md-direction="left">Suggest a course</md-tooltip>
+            </md-button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="polls">
-      <md-card
-        :key="poll.pollId"
-        v-for="poll in polls"
-        class="card"
-      >
+      <md-card :key="poll.pollId" v-for="poll in polls" class="card">
         <md-card-header>
           <div class="md-title">{{poll.courseName}}</div>
         </md-card-header>
@@ -133,5 +134,14 @@ export default {
 }
 .card {
   margin-bottom: 20px;
+}
+
+.suggest-course {
+  display: flex;
+  text-align: baseline;
+}
+
+#h2 {
+  vertical-align: center;
 }
 </style>
