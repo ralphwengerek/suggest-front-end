@@ -18,7 +18,7 @@
             </md-card-header>
             <md-card-content>
               <div class="md-layout md-gutter md-alignment-space-between-top">
-                <div class="md-layout-item md-size-70" v-html="nl2br(poll.courseDescription)"></div>
+                <div class="md-layout-item md-size-80" v-html="nl2br(poll.courseDescription)"></div>
                 <div class="md-layout-item">
                   <div class="md-layout">
                     <div class="center vote-count md-layout-item md-size-100">{{poll.voteCount}}</div>
@@ -32,6 +32,7 @@
                         <md-icon>thumb_up</md-icon>
                       </md-button>
                     </div>
+                    <div class="date md-caption">Poll created on : {{ new Date(poll.createdDate).toDateString() }}</div>
                   </div>
                 </div>
               </div>
@@ -138,5 +139,10 @@ export default {
 
 span.md-headline {
   line-height: 70px;
+}
+
+.date {
+  margin-top: 10px;
+  text-align: center;
 }
 </style>

@@ -83,7 +83,7 @@
                 id="host-details"
                 v-if="runCourse"
               >
-                <div class="md-layout md-gutter">
+                <div class="md-layout md-gutter md-size-100">
                   <div class="md-layout-item">
                     <md-field :class="getValidationClass('authorName')">
                       <label for="author-name">Author Name</label>
