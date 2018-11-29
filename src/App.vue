@@ -123,4 +123,8 @@ export default {
   width: 230px;
   max-width: calc(100vw - 125px);
 }
+
+div.md-app-toolbar {
+  min-height: 60px;
+}
 </style>
