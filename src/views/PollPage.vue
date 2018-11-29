@@ -2,7 +2,7 @@
   <div>
     <div class="btn-add-suggestion">
       <md-button
-        class="md-icon-button md-raised md-accent"
+        class="md-fab"
         to="/suggest"
       >
         <md-icon>add</md-icon>

@@ -1,7 +1,7 @@
 <template>
   <div >
     <div class="btn-go-back">
-            <md-button class="md-icon-button md-raised md-accent" to="/">
+            <md-button class="md-fab" to="/">
                 <md-icon>arrow_back</md-icon>
                 <md-tooltip md-direction="right" >Go back</md-tooltip>
             </md-button>
