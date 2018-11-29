@@ -7,7 +7,7 @@
             <span class="md-headline">Suggest a new course</span>
             <md-button class="md-fab" to="/suggest">
               <md-icon>add</md-icon>
-              <md-tooltip md-direction="left">Suggest a course</md-tooltip>
+              <md-tooltip md-direction="right">Suggest a course</md-tooltip>
             </md-button>
           </div>
         </div>

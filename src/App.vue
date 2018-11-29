@@ -118,8 +118,7 @@ export default {
   min-height: 350px;
 }
 
-// Demo purposes only
-.md-drawer {
+div.md-drawer {
   width: 230px;
   max-width: calc(100vw - 125px);
 }

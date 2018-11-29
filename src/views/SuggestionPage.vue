@@ -17,9 +17,9 @@
                   to="/"
                 >
                   <md-icon>arrow_back</md-icon>
-                  <md-tooltip md-direction="right">Go back</md-tooltip>
+                  <md-tooltip md-direction="left">Go back</md-tooltip>
                 </md-button>
-                <div class="md-display-2 suggest-title">Suggest a course</div>
+                <div class="md-headline suggest-title">Suggest a course</div>
               </div>
             </md-card-header>
 
