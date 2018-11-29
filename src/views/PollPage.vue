@@ -43,16 +43,14 @@
 
 <script>
 import config from "../config";
-const voterId = "needtochangetodynamic";
+
 export default {
   name: "Poll",
   created: function() {
-    this.$http
-      .get(`${config.baseUrl}/suggestions?voterId=${voterId}`)
-      .then(response => {
-        console.log(response);
-        this.polls = response.body;
-      });
+    this.$http.get(`${config.baseUrl}/suggestions/voterId`).then(response => {
+      console.log(response);
+      this.polls = response.body;
+    });
   },
   data: () => ({
     polls: []
