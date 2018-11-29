@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "cuid": "^2.1.4",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.17",
     "vue-filter": "^0.2.5",
