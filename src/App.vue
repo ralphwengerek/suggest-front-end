@@ -1,13 +1,25 @@
 <template>
   <div class="page-container">
     <md-app>
-      <md-app-toolbar class="md-primary" md-elevation="2">
-        <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+      <md-app-toolbar
+        class="md-primary"
+        md-elevation="2"
+      >
+        <md-button
+          class="md-icon-button"
+          @click="toggleMenu"
+          v-if="!menuVisible"
+        >
           <md-icon>menu</md-icon>
         </md-button>
         <div class="top-toolbar">
           <div class="logo">
-            <img src="./assets/ANDigitalLogo.png" alt="AND Digital" height="150" width="150">
+            <img
+              src="./assets/ANDigitalLogo.png"
+              alt="AND Digital"
+              height="150"
+              width="150"
+            >
           </div>
           <div class="md-title">
             <div class="title">Academy Poll</div>
@@ -15,29 +27,47 @@
         </div>
       </md-app-toolbar>
       <md-app-drawer :md-active.sync="menuVisible">
-        <md-toolbar class="md-transparent" md-elevation="0">
+        <md-toolbar
+          class="md-transparent"
+          md-elevation="0"
+        >
           <span>Navigation</span>
           <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button md-dense" @click="toggleMenu">
+            <md-button
+              class="md-icon-button md-dense"
+              @click="toggleMenu"
+            >
               <md-icon>keyboard_arrow_left</md-icon>
             </md-button>
           </div>
         </md-toolbar>
         <md-list>
-          <md-list-item to="/">
+          <md-list-item
+            to="/"
+            @click="toggleMenu()"
+          >
             <md-icon>poll</md-icon>
             <span class="md-list-item-text">Academy Poll</span>
-            <md-tooltip md-direction="right" v-show="!menuVisible">Academy Poll</md-tooltip>
+            <md-tooltip
+              md-direction="right"
+              v-show="!menuVisible"
+            >Academy Poll</md-tooltip>
           </md-list-item>
-          <md-list-item to="/suggest">
+          <md-list-item
+            to="/suggest"
+            @click="toggleMenu()"
+          >
             <md-icon>add</md-icon>
             <span class="md-list-item-text">Suggest a course</span>
-            <md-tooltip md-direction="right" v-show="!menuVisible">Suggest a course</md-tooltip>
+            <md-tooltip
+              md-direction="right"
+              v-show="!menuVisible"
+            >Suggest a course</md-tooltip>
           </md-list-item>
         </md-list>
       </md-app-drawer>
       <md-app-content>
-        <router-view/>
+        <router-view />
       </md-app-content>
     </md-app>
   </div>

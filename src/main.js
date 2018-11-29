@@ -4,11 +4,14 @@ import router from "./router";
 import "./registerServiceWorker";
 import VueResource from "vue-resource";
 import VueMaterial from "vue-material";
+import VueFilter from "vue-filter";
+
 import "vue-material/dist/vue-material.min.css";
 
 Vue.config.productionTip = false;
 Vue.use(VueMaterial);
 Vue.use(VueResource);
+Vue.use(VueFilter);
 
 new Vue({
   router,
