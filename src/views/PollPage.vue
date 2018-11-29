@@ -1,23 +1,16 @@
 <template>
   <div>
-    <div class="md-layout md-alignment-center-right">
-      <div class="md-layout-item md-large-size-50 md-small-size-100">
-        <div class="btn-add-suggestion">
-          <div class="md-layout md-gutter">
-            <!-- HERE WE NEED TO ALIGN THE TEXT VERTICALLY IN THE CENTER -->
-            <div class="md-layout-item md-alignment-center-left">
-              <span class="md-headline">Suggest a new course</span>
-            </div>
+    <div class="polls">
+      <div class="md-layout md-alignment-top-center">
+        <div class="md-layout-item md-large-size-70 md-small-size-100">
+          <div class="btn-add-suggestion">
+            <span class="md-headline">Suggest a new course</span>
             <md-button class="md-fab" to="/suggest">
               <md-icon>add</md-icon>
               <md-tooltip md-direction="left">Suggest a course</md-tooltip>
             </md-button>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="polls">
-      <div class="md-layout md-alignment-top-center">
         <div class="md-layout-item md-large-size-70 md-small-size-100">
           <md-card :key="poll.pollId" v-for="poll in polls" class="card">
             <md-card-header>
