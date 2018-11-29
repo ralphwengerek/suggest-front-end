@@ -6,7 +6,7 @@
           <div class="md-layout md-gutter">
             <!-- HERE WE NEED TO ALIGN THE TEXT VERTICALLY IN THE CENTER -->
             <div class="md-layout-item md-alignment-center-left">
-              <span class="md-headline"> Suggest a new course </span>
+              <span class="md-headline">Suggest a new course</span>
             </div>
             <md-button class="md-fab" to="/suggest">
               <md-icon>add</md-icon>
@@ -17,36 +17,38 @@
       </div>
     </div>
     <div class="polls">
-      <md-card :key="poll.pollId" v-for="poll in polls" class="card">
-        <md-card-header>
-          <div class="md-title">{{poll.courseName}}</div>
-        </md-card-header>
-        <md-card-content>
-          <div class="md-layout md-gutter md-alignment-space-between-top">
-            <div class="md-layout-item md-size-70" v-html="nl2br(poll.courseDescription)"></div>
-            <div class="md-layout-item">
-              <div class="md-layout">
-                <div class="center vote-count md-layout-item md-size-100">{{poll.voteCount}}</div>
-                <div class="center md-layout-item md-size-100">
-                  <md-button
-                    class="md-icon-button"
-                    :class="{'md-accent': poll.hasVoted,
+      <div class="md-layout md-alignment-top-center">
+        <div class="md-layout-item md-large-size-70 md-small-size-100">
+          <md-card :key="poll.pollId" v-for="poll in polls" class="card">
+            <md-card-header>
+              <div class="md-title">{{poll.courseName}}</div>
+            </md-card-header>
+            <md-card-content>
+              <div class="md-layout md-gutter md-alignment-space-between-top">
+                <div class="md-layout-item md-size-70" v-html="nl2br(poll.courseDescription)"></div>
+                <div class="md-layout-item">
+                  <div class="md-layout">
+                    <div class="center vote-count md-layout-item md-size-100">{{poll.voteCount}}</div>
+                    <div class="center md-layout-item md-size-100">
+                      <md-button
+                        class="md-icon-button"
+                        :class="{'md-accent': poll.hasVoted,
                     'md-elevation-5':!poll.hasVoted}"
-                    @click="vote({ courseSuggestionId: poll.courseSuggestionId, voterId:getUserId(), hasVoted: poll.hasVoted})"
-                  >
-                    <md-icon>thumb_up</md-icon>
-                  </md-button>
+                        @click="vote({ courseSuggestionId: poll.courseSuggestionId, voterId:getUserId(), hasVoted: poll.hasVoted})"
+                      >
+                        <md-icon>thumb_up</md-icon>
+                      </md-button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </md-card-content>
-      </md-card>
+            </md-card-content>
+          </md-card>
+        </div>
+      </div>
     </div>
 
-    <md-snackbar :md-active.sync="showSnackbar">
-      {{errorMessage}}
-    </md-snackbar>
+    <md-snackbar :md-active.sync="showSnackbar">{{errorMessage}}</md-snackbar>
   </div>
 </template>
 
