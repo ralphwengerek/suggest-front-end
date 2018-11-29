@@ -1,5 +1,11 @@
 <template>
   <div >
+    <div class="btn-go-back">
+            <md-button class="md-icon-button md-raised md-accent" to="/">
+                <md-icon>arrow_back</md-icon>
+                <md-tooltip md-direction="right" >Go back</md-tooltip>
+            </md-button>
+        </div>
     <form novalidate @submit.prevent="validateForm">
       <div class="md-layout md-alignment-top-center">
         <div class="md-layout-item md-large-size-50 md-small-size-100">
@@ -118,7 +124,7 @@
               type="submit"
               class="md-primary"
               v-on:click="submitForm"
-              :disabled="sending"
+              :disabled="sending" 
             >Suggest Course</md-button>
           </md-card-actions>
         </md-card>
@@ -138,6 +144,7 @@ import { required } from "vuelidate/lib/validators";
 import { requiredIf } from "vuelidate/lib/validators";
 
 import config from "../config";
+import router from "../router";
 
 export default {
   name: "SuggestionPage",
@@ -213,6 +220,7 @@ export default {
               console.log("SUCCESS:", success);
               this.suggestionAdded = true;
               this.clearForm();
+              router.push("/");
             },
             failed => {
               console.log("FAILED:", failed);
