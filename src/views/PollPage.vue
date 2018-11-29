@@ -5,7 +5,9 @@
         <div class="btn-add-suggestion">
           <div class="md-layout md-gutter">
             <!-- HERE WE NEED TO ALIGN THE TEXT VERTICALLY IN THE CENTER -->
-            <h2 class="md-layout-item md-alignment-center-left">Suggest a new course</h2>
+            <div class="md-layout-item md-alignment-center-left">
+              <span class="md-headline"> Suggest a new course </span>
+            </div>
             <md-button class="md-fab" to="/suggest">
               <md-icon>add</md-icon>
               <md-tooltip md-direction="left">Suggest a course</md-tooltip>
@@ -136,12 +138,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.suggest-course {
-  display: flex;
-  text-align: baseline;
-}
-
-#h2 {
-  vertical-align: center;
+span.md-headline {
+  line-height: 70px;
 }
 </style>
